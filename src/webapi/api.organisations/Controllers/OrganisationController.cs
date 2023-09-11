@@ -24,22 +24,15 @@ public class OrganisationController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<OrganisationCreateResponseModel>> PostAsync([FromBody] OrganisationCreateRequestModel organisationCreate)
     {
-        try
-        {
-            var command = new CreateOrganisationCommand(organisationCreate.OrganisationName, organisationCreate.CreatedBy);
-            var commandResponse = await _mediator.Send(command);
+        var command = new CreateOrganisationCommand(organisationCreate.OrganisationName, organisationCreate.CreatedBy);
+        var commandResponse = await _mediator.Send(command);
 
-            var httpResponse = new OrganisationCreateResponseModel
-            {
-                OrganisationId = commandResponse.organisationId.Id,
-                OrganisationName = command.OrganisationName
-            };
-
-            return Created($"Organisation/{commandResponse.organisationId.Id}", httpResponse);
-        }
-        catch (Exception ex)
+        var httpResponse = new OrganisationCreateResponseModel
         {
-            return BadRequest(ex.Message);
-        }
+            OrganisationId = commandResponse.organisationId.Id,
+            OrganisationName = command.OrganisationName
+        };
+
+        return Created($"Organisation/{commandResponse.organisationId.Id}", httpResponse);
     }
 }
