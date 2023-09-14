@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repository", "repository", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.organisations.repositories", "src\repository\api.organisations.repositories\api.organisations.repositories.csproj", "{FFC89CBB-3EE4-4715-BFE8-AA466E3D37D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{A2159996-A8A8-405F-914A-E2C70932D4A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.organisations.domain.tests", "test\domain\api.organisations.domaintests\api.organisations.domain.tests.csproj", "{28D9EFE1-2A7E-4003-8993-8AC220E8D95C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,10 @@ Global
 		{FFC89CBB-3EE4-4715-BFE8-AA466E3D37D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFC89CBB-3EE4-4715-BFE8-AA466E3D37D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFC89CBB-3EE4-4715-BFE8-AA466E3D37D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D9EFE1-2A7E-4003-8993-8AC220E8D95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D9EFE1-2A7E-4003-8993-8AC220E8D95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D9EFE1-2A7E-4003-8993-8AC220E8D95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D9EFE1-2A7E-4003-8993-8AC220E8D95C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{42543339-DDA2-4B6B-A762-DCB032ED4B6E} = {111CE62E-81C5-4E47-9203-A24691FDED6D}
@@ -58,5 +66,7 @@ Global
 		{8C29A8F3-E4EB-4F83-8A4D-E10A32D384BD} = {1E0EBAEE-E5F3-46A8-A208-14DCEA6DEF48}
 		{E83D0ABB-2AD3-4EF3-9427-18043114EE56} = {24F29D47-6C07-4D93-91CD-6C56AC120257}
 		{FFC89CBB-3EE4-4715-BFE8-AA466E3D37D4} = {E83D0ABB-2AD3-4EF3-9427-18043114EE56}
+		{A2159996-A8A8-405F-914A-E2C70932D4A1} = {111CE62E-81C5-4E47-9203-A24691FDED6D}
+		{28D9EFE1-2A7E-4003-8993-8AC220E8D95C} = {A2159996-A8A8-405F-914A-E2C70932D4A1}
 	EndGlobalSection
 EndGlobal

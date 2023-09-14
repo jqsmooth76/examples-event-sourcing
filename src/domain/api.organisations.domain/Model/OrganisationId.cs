@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace api.organisations.domain.Model;
 
-public record OrganisationId(string Id)
+public record OrganisationId(string Value)
 {
+    public static OrganisationId Empty = new OrganisationId(Guid.Empty.ToString());
 }

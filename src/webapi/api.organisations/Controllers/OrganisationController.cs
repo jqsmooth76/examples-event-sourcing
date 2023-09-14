@@ -29,10 +29,10 @@ public class OrganisationController : Controller
 
         var httpResponse = new OrganisationCreateResponseModel
         {
-            OrganisationId = commandResponse.organisationId.Id,
+            OrganisationId = commandResponse.organisationId.Value,
             OrganisationName = command.OrganisationName
         };
 
-        return Created($"Organisation/{commandResponse.organisationId.Id}", httpResponse);
+        return Created($"Organisation/{commandResponse.organisationId.Value}", httpResponse);
     }
 }
