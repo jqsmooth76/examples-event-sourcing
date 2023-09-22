@@ -1,11 +1,9 @@
 namespace api.organisations.domain.Events.Organisation;
 
-public record OrganisationCreatedEvent(
-    string Identity,
-    string Name,
-    string CreatedByIdentity) : IEventStoreEvent
+public class OrganisationCreatedEvent : BaseEvent
 {
-    public DateTime TimeStamp { get; } = DateTime.UtcNow;
-
-    public Guid EventId { get; } = Guid.NewGuid();
+    public string Identity { get; set; }
+    public string Name { get; set; }
+    public string CreatedByIdentity { get; set; }
+    public string CreatedByName { get; set; }
 }

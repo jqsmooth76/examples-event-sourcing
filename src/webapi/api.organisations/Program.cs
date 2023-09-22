@@ -4,7 +4,7 @@ using api.organisations.Validators.v1;
 using FluentValidation;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Enums;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
-
+using api.organisations.repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +27,15 @@ builder.Services.AddFluentValidationAutoValidation(configuration =>
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateOrganisationCommand>());
 
 // Add services to the container.
+builder.Services.AddOrganisationWriteRepository();
+builder.Services.AddOrganisationViewRepository();
+
+// Add configuration options
+builder.Services.AddOptions<EventStoreClientOptions>()
+    .BindConfiguration("EventStoreClientOptions")
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

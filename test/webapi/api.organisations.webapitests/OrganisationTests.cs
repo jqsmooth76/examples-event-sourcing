@@ -1,19 +1,19 @@
 using System.Net;
-using System.Text;
-using System.Text.Json;
 using api.organisations.ViewModels.v1.Organisation;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using apiTestHelpers;
+using System.Text.Json;
 
 namespace api.organisations.webapitests;
 
 public class OrganisationTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly HttpClient _httpClient;
 
     public OrganisationTests(WebApplicationFactory<Program> factory)
     {
-        _factory = factory;
+        _httpClient = factory.CreateClient();
     }
 
     [Fact]
@@ -22,11 +22,11 @@ public class OrganisationTests : IClassFixture<WebApplicationFactory<Program>>
         var organisationCreateModel = new OrganisationCreateRequestModel
         {
             OrganisationName = $"New Organisation {Guid.NewGuid()}",
-            CreatedBy = Guid.NewGuid().ToString(),
+            CreatedByUserIdentity = Guid.NewGuid().ToString(),
+            CreatedByUserName = $"User {Guid.NewGuid()}",
         };
-        var content = new StringContent(JsonSerializer.Serialize(organisationCreateModel), Encoding.UTF8, "application/json");
 
-        var response = await _factory.CreateClient().PostAsync("/Organisation", content);
+        var response = await _httpClient.PostAsync(organisationCreateModel, "/Organisation");
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
@@ -36,27 +36,65 @@ public class OrganisationTests : IClassFixture<WebApplicationFactory<Program>>
     {
         var organisationCreateModel = new OrganisationCreateRequestModel
         {
-            CreatedBy = Guid.NewGuid().ToString(),
+            CreatedByUserIdentity = Guid.NewGuid().ToString(),
+            CreatedByUserName = $"User {Guid.NewGuid()}",
         };
-        var content = new StringContent(JsonSerializer.Serialize(organisationCreateModel), Encoding.UTF8, "application/json");
 
-        var response = await _factory.CreateClient().PostAsync("/Organisation", content);
+        var response = await _httpClient.PostAsync(organisationCreateModel, "/Organisation");
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Fact]
-    public async Task GivenCreatingANewOrganisation_WithAnInvalidCreatedBy_Returns400_BadRequest()
+    public async Task GivenCreatingANewOrganisation_WithAnInvalidCreatedByUserIdentity_Returns400_BadRequest()
     {
         var organisationCreateModel = new OrganisationCreateRequestModel
         {
             OrganisationName = "Some Organisation",
-            CreatedBy = "This is not a Guid"
+            CreatedByUserIdentity = "This is not a Guid",
+            CreatedByUserName = "Test User",
         };
-        var content = new StringContent(JsonSerializer.Serialize(organisationCreateModel), Encoding.UTF8, "application/json");
 
-        var response = await _factory.CreateClient().PostAsync("/Organisation", content);
+        var response = await _httpClient.PostAsync(organisationCreateModel, "/Organisation");
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task GivenCreatingANewOrganisation_WithAnInvalidCreatedByUserName_Returns400_BadRequest()
+    {
+        var organisationCreateModel = new OrganisationCreateRequestModel
+        {
+            OrganisationName = "Some Organisation",
+            CreatedByUserIdentity = "This is not a Guid"
+        };
+
+        var response = await _httpClient.PostAsync(organisationCreateModel, "/Organisation");
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task GivenAValidOrganisationIsCreated_WhenRetrievingTheOrganisation_ThenItIsAvailableToRead()
+    {
+        var organisationCreateModel = new OrganisationCreateRequestModel
+        {
+            OrganisationName = $"New Organisation {Guid.NewGuid()}",
+            CreatedByUserIdentity = Guid.NewGuid().ToString(),
+            CreatedByUserName = "Test User",
+        };
+
+        var createResponse = await _httpClient.PostAsync(organisationCreateModel, "/Organisation");
+        createResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        var responseString = await createResponse.Content.ReadAsStringAsync();
+        var organisationResponseModel = JsonSerializer.Deserialize<OrganisationCreateResponseModel>(responseString, options);
+
+        var getResponse = await _httpClient.GetAsync($"/Organisation/{organisationResponseModel?.OrganisationId}");
+        getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }

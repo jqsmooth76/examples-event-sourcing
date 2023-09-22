@@ -10,10 +10,13 @@ public class OrganisationCreateValidator : AbstractValidator<OrganisationCreateR
     {
         RuleFor(organisation => organisation.OrganisationName)
             .NotEmpty()
-            .MinimumLength(5).WithMessage("OrganisationName");
-        RuleFor(organisation => organisation.CreatedBy)
+            .MinimumLength(5).WithMessage("OrganisationName should be minimum 5 characters");
+        RuleFor(organisation => organisation.CreatedByUserIdentity)
             .NotEmpty()
-            .Must(ValidateGuid).WithMessage("Not a Guid");
+            .Must(ValidateGuid).WithMessage("CreatedByUserIdentity must be a Guid");
+        RuleFor(organisation => organisation.CreatedByUserIdentity)
+            .NotEmpty()
+            .MinimumLength(5).WithMessage("CreatedByUserName should be minimum 5 characters"); ;
     }
 
     private bool ValidateGuid(string guidToTest)

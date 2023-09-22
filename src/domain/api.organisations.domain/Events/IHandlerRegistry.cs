@@ -1,8 +1,9 @@
+using api.organisations.domain.Model;
+
 namespace api.organisations.domain.Events;
 
 public interface IHandlerRegistry
 {
-    void RegisterEventHandler<TEvent>(EventHandler<TEvent> handler) where TEvent : IEventStoreEvent;
+    void RegisterEventHandler<TEvent>(DomainEventHandler<TEvent> handler) where TEvent : IEventStoreEvent;
 }
 
-public delegate void EventHandler<T>(T @event) where T : IEventStoreEvent;
