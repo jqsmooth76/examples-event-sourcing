@@ -6,4 +6,6 @@ namespace api.organisations.repositories.Read;
 public interface IOrganisationViewRepository
 {
     Task<OrganisationView> GetAsync(OrganisationId organisationId);
+
+    Task<bool> SaveAsync(OrganisationView organisationView);
 }

@@ -35,10 +35,24 @@ public class Organisation : AggregateRoot<OrganisationId>
     public UserReference CreatedBy { get; private set; } = UserReference.Empty;
 
 
+    public bool ChangeOrganisationName(ChangeOrganisationNameCommand command)
+    {
+        if (command.NewOrganisationName == null)
+            return false;
+
+        var orgNameChangeEvent = new OrganisationNameChangedEvent { OrganisationName = command.NewOrganisationName };
+
+        Apply(orgNameChangeEvent);
+
+        return true;
+    }
+
+
     protected override void AddEventHandlers(IHandlerRegistry registry)
     {
         registry.RegisterEventHandler<OrganisationCreatedEvent>(When);
         registry.RegisterEventHandler<UserJoinedOrganisationEvent>(When);
+        registry.RegisterEventHandler<OrganisationNameChangedEvent>(When);
     }
 
     private void When(OrganisationCreatedEvent @event)
@@ -65,6 +79,11 @@ public class Organisation : AggregateRoot<OrganisationId>
                 break;
         };
 
+    }
+
+    private void When(OrganisationNameChangedEvent @event)
+    {
+        Name = @event.OrganisationName;
     }
 
     public bool IsAdministrator(UserReference userReference)

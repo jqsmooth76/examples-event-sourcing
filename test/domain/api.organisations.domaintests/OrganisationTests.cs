@@ -53,4 +53,27 @@ public class OrganisationTests
         organisation.Identity.Value.Should().Be(organisationCreatedEvent.Identity);
         organisation.IsAdministrator(createdByUser).Should().BeTrue();
     }
+
+    [Fact]
+    public void When_ChangeOrganisationNameCommand_ThenTheOragnisationNameIsChanged()
+    {
+        var newOrganisationName = $"OrgName{Guid.NewGuid()}";
+        var changeOrgNameCommand = new ChangeOrganisationNameCommand(newOrganisationName);
+
+        var organisation = CreateOrganisation();
+
+        organisation.ChangeOrganisationName(changeOrgNameCommand);
+
+        organisation.Name.Should().Be(newOrganisationName);
+    }
+
+    private Organisation CreateOrganisation()
+    {
+        var createdByUserReference = new UserReference(new UserIdentity(Guid.NewGuid().ToString()), "Created By User");
+        var createOrganisationCommand = new CreateOrganisationCommand(
+            $"Org Name {Guid.NewGuid()}",
+            createdByUserReference);
+
+        return new Organisation(createOrganisationCommand);
+    }
 }
