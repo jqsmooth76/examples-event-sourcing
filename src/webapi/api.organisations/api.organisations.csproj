@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ContainerPort Include="80" Type="tcp" />
+    <ContainerRegistry>ghcr.io/jqsmooth76/oragnisations-api:latest</ContainerRegistry>
   </ItemGroup>
 
   <ItemGroup>
