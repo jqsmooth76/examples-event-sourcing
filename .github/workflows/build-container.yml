@@ -17,6 +17,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
+      - name: List directories
+        run: |
+          ls -lart
+          pwd
+
       - name: Run Unit tests
         run: dotnet test --no-restore ./test/domain/api.organisations.domaintests/api.organisations.domaintests.csproj
 
