@@ -36,4 +36,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to Github Container registry
-        run: docker push ghcr.io/jqsmooth76/api.organisations:1.0.0
+        run: docker push api.organisations:1.0.0
