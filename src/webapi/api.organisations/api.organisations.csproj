@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishProfile>DefaultContainer</PublishProfile>
+    <ContainerImageName>ghcr.io/jqsmooth76/organisation-api</ContainerImageName>
+    <ContainerImageTag>1.0.0</ContainerImageTag>
   </PropertyGroup>
 
   <ItemGroup>
