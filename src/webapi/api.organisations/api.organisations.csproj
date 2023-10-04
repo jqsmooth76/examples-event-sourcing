@@ -5,11 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishProfile>DefaultContainer</PublishProfile>
-    <ContainerRegistry>ghcr.io/jqsmooth76/oragnisations-api:latest</ContainerRegistry>
+    <ContainerRegistry>ghcr.io/jqsmooth76/organisations-api:latest</ContainerRegistry>
+
   </PropertyGroup>
 
   <ItemGroup>
     <ContainerPort Include="80" Type="tcp" />
+    <ContainerLabel Include="org.opencontainers.image.source" Value="https://github.com/jqsmooth76/event-sourcing-example" />
   </ItemGroup>
 
   
