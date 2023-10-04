@@ -5,16 +5,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishProfile>DefaultContainer</PublishProfile>
+    <ContainerRegistry>ghcr.io/jqsmooth76/oragnisations-api:latest</ContainerRegistry>
   </PropertyGroup>
 
   <ItemGroup>
     <ContainerPort Include="80" Type="tcp" />
   </ItemGroup>
 
-  <ItemGroup>    
-    <ContainerRegistry>ghcr.io/jqsmooth76/oragnisations-api:latest</ContainerRegistry>
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
