@@ -5,8 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishProfile>DefaultContainer</PublishProfile>
-    <ContainerRegistry>ghcr.io/jqsmooth76/organisations-api:latest</ContainerRegistry>
-
   </PropertyGroup>
 
   <ItemGroup>

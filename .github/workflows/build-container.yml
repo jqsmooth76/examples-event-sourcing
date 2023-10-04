@@ -27,3 +27,13 @@ jobs:
 
       - name: Build
         run: dotnet publish --os linux --arch x64 -p:PublishProfile=DefaultContainer ./src/webapi/api.organisations/api.organisations.csproj
+
+      - name: Login with Github Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: jqsmooth76
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to Github Container registry
+        run: docker push ghcr.io/jqsmooth76/organisations-api:1.0.0
