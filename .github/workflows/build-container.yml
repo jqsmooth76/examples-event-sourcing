@@ -23,7 +23,7 @@ jobs:
           pwd
 
       - name: Run Unit tests
-        run: dotnet test --no-restore ./test/domain/api.organisations.domaintests/api.organisations.domaintests.csproj
+        run: dotnet test --no-restore ./test/domain/api.organisations.domaintests/api.organisations.domain.tests.csproj
 
       - name: Build
         run: dotnet publish --os linux --arch x64 -p:PublishProfile=DefaultContainer ./src/webapi/api.organisations/api.organisations.csproj
