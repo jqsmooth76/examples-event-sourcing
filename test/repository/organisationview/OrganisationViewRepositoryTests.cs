@@ -27,7 +27,7 @@ public class OrganisationViewRepositoryTests
         _repository = new OrganisationViewRepository(Options.Create(dbSettings));
 
         _fixture = new Fixture();
-        _fixture.Customize(new TestConventions());
+        _fixture.Customize(new CompositeTestingCustomization());
     }
 
     [Fact]

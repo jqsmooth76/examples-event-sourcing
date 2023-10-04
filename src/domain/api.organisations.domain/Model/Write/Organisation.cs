@@ -6,7 +6,7 @@ using api.organisations.domain.Model.Write;
 
 namespace api.organisations.domain.Model;
 
-public class Organisation : AggregateRoot<OrganisationId>
+public partial class Organisation : AggregateRoot<OrganisationId>
 {
     private readonly IList<UserReference> _organisationMembers = new List<UserReference>();
     private readonly IList<UserReference> _organisationAdmins = new List<UserReference>();

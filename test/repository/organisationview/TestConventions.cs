@@ -3,9 +3,9 @@ using MongoDB.Bson;
 
 namespace organisationview;
 
-internal class TestConventions : CompositeCustomization
+internal class CompositeTestingCustomization : CompositeCustomization
 {
-    public TestConventions() :
+    public CompositeTestingCustomization() :
         base(
             new MongoObjectIdCustomization())
     {

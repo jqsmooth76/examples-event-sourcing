@@ -40,8 +40,7 @@ public class OrganisationViewRepository : IOrganisationViewRepository
         catch (MongoClientException)
         {
             // log the exception here
+            return false;
         }
-
-        return false;
     }
 }

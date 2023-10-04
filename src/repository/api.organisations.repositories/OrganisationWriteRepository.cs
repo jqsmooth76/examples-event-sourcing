@@ -22,12 +22,15 @@ public class OrganisationWriteRepository : IOrganisationWriteRepository
         {
             var eventData = GetEventDataFor(organisation.Events);
 
+            // use the Version field from the aggregate root 
+            // to ensure idempotence against the stream
+            // and to ensure concurrency
             await _eventStoreClient.AppendToStreamAsync(
                 $"organisation-{organisation.Identity.Value}",
-                StreamState.Any,
+                StreamRevision.FromInt64(organisation.Version),
                 eventData);
         }
-        catch
+        catch (Exception ex)
         {
             return false;
         }

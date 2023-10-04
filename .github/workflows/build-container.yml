@@ -1,0 +1,24 @@
+name: dotnet package
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "7.0.x"
+
+      # You can test your matrix by printing the current dotnet version
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run Unit tests
+        run: dotnet test --no-restore ./test/domain/api.organisations.domaintests/api.organisations.domaintests.csproj
+
+      - name: Build
+        run: dotnet publish --os linux --arch x64 -p:PublishProfile=DefaultContainer ./src/webapi/api.organisations/api.organisations.csproj

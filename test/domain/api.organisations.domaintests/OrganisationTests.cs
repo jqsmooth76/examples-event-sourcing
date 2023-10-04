@@ -10,7 +10,7 @@ public class OrganisationTests
     [Fact]
     public void When_CreateOrganisationCommand_ShouldSet_OrganisationId_Name()
     {
-        var createdByUserReference = new UserReference(new UserIdentity(Guid.NewGuid().ToString()), "Created By User");
+        var createdByUserReference = UserReference.From(Guid.NewGuid().ToString(), "Created By User");
         var createOrganisationCommand = new CreateOrganisationCommand(
             $"Org Name {Guid.NewGuid()}",
             createdByUserReference);
@@ -24,7 +24,7 @@ public class OrganisationTests
     [Fact]
     public void When_CreateOrganisationCommand_ShouldSet_InitialAdministrator()
     {
-        var createdByUserReference = new UserReference(new UserIdentity(Guid.NewGuid().ToString()), "Created By User");
+        var createdByUserReference = UserReference.From(Guid.NewGuid().ToString(), "Created By User");
         var createOrganisationCommand = new CreateOrganisationCommand(
             $"Org Name {Guid.NewGuid()}",
             createdByUserReference);
@@ -38,7 +38,7 @@ public class OrganisationTests
     [Fact]
     public void When_OrganisationIsRehydratedWithEvents_TheOrganisationExistsWithTheCorrectValues()
     {
-        var createdByUser = new UserReference(new UserIdentity(Guid.NewGuid().ToString()), "Joe Bloggs");
+        var createdByUser = UserReference.From(Guid.NewGuid().ToString(), "Joe Bloggs");
         var organisationCreatedEvent = new OrganisationCreatedEvent
         {
             CreatedByIdentity = createdByUser.UserIdentity.Identity,
@@ -69,7 +69,7 @@ public class OrganisationTests
 
     private Organisation CreateOrganisation()
     {
-        var createdByUserReference = new UserReference(new UserIdentity(Guid.NewGuid().ToString()), "Created By User");
+        var createdByUserReference = UserReference.From(Guid.NewGuid().ToString(), "Created By User");
         var createOrganisationCommand = new CreateOrganisationCommand(
             $"Org Name {Guid.NewGuid()}",
             createdByUserReference);
